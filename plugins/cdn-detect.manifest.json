@@ -1,0 +1,92 @@
+{
+  "identifier": "run.vineyard.pluginpacks.cdn_detect",
+  "content_type": "vineyard:pluginpack",
+  "name": "CDN / WAF Detection (cdncheck)",
+  "version": "1.0.0",
+  "description": "Detects CDN/WAF providers for IP addresses (offline CIDR match) and domains (DNS-over-HTTPS CNAME match), using ProjectDiscovery's cdncheck dataset (MIT license).",
+  "author": {
+    "name": "vineyard-run",
+    "url": "https://github.com/vineyard-run"
+  },
+  "license": "Apache-2.0",
+  "icon": "shield-check",
+  "platforms": {
+    "primary": "web",
+    "web": {
+      "runtime": "sandbox-js",
+      "entry": "dist/cdn-detect-pack.js"
+    }
+  },
+  "distribution": {
+    "kind": "git",
+    "repository": "https://github.com/Vineyard-Intelligence/pluginpack-cdn-detect",
+    "ref": "v1.0.0",
+    "path": "plugins/cdn-detect.manifest.json"
+  },
+  "plugins": [
+    {
+      "identifier": "run.vineyard.plugins.cdn_detect_ip",
+      "content_type": "vineyard:plugin",
+      "name": "Detect CDN/WAF (IP)",
+      "version": "1.0.0",
+      "description": "Matches each selected IP against known CDN and WAF edge-network ranges (3490 ranges bundled from ProjectDiscovery cdncheck) and fills the IP's organization field. Fully offline — no network access; only reads and updates the matched node's own data.",
+      "icon": "shield-check",
+      "platforms": {
+        "primary": "web",
+        "web": {
+          "runtime": "sandbox-js",
+          "entry": "inline"
+        }
+      },
+      "io": {
+        "consumes": [
+          { "typepack": "run.vineyard.typepacks.infrastructure", "category": "infrastructure", "name": "ip_address" }
+        ],
+        "produces": []
+      },
+      "scopes": {
+        "graph": ["node:read", "node:update"]
+      },
+      "lifecycle": {
+        "persistence": "opt-in",
+        "controls": ["progress", "cancel"],
+        "progress": "determinate"
+      }
+    },
+    {
+      "identifier": "run.vineyard.plugins.cdn_detect_hostname",
+      "content_type": "vineyard:plugin",
+      "name": "Detect CDN (Hostname)",
+      "version": "1.0.0",
+      "description": "Follows each selected domain's CNAME chain (via DNS-over-HTTPS) and matches it against 32 known CDN hostname patterns (cdncheck \"common\" list). Adds the resolved CNAME as a DNS record on a match.",
+      "icon": "route",
+      "platforms": {
+        "primary": "web",
+        "web": {
+          "runtime": "sandbox-js",
+          "entry": "inline"
+        }
+      },
+      "io": {
+        "consumes": [
+          { "typepack": "run.vineyard.typepacks.infrastructure", "category": "infrastructure", "name": "domain" }
+        ],
+        "produces": [
+          { "typepack": "run.vineyard.typepacks.infrastructure", "category": "infrastructure", "name": "dns_record" }
+        ]
+      },
+      "scopes": {
+        "graph": ["node:read", "node:create", "edge:create"],
+        "network": [
+          { "endpoint": "https://cloudflare-dns.com/dns-query", "methods": ["GET"], "purpose": "Resolve CNAME chain over DNS-over-HTTPS." },
+          { "endpoint": "https://dns.google/resolve", "methods": ["GET"], "purpose": "Fallback DoH resolver." }
+        ]
+      },
+      "lifecycle": {
+        "persistence": "opt-in",
+        "controls": ["progress", "cancel"],
+        "progress": "determinate"
+      }
+    }
+  ]
+}
