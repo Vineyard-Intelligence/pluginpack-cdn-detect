@@ -14,7 +14,7 @@
     "primary": "web",
     "web": {
       "runtime": "sandbox-js",
-      "entry": "dist/cdn-detect-pack.js"
+      "entry": "dist/pack.mjs"
     }
   },
   "distribution": {
