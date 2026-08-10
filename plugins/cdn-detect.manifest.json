@@ -6,7 +6,7 @@
   "description": "Detects CDN/WAF providers for IP addresses (offline CIDR match) and domains (DNS-over-HTTPS CNAME match), using ProjectDiscovery's cdncheck dataset (MIT license).",
   "author": {
     "name": "VINEYARD",
-    "url": "https://github.com/vineyard-run"
+    "url": "https://github.com/Vineyard-Intelligence"
   },
   "license": "Apache-2.0",
   "icon": "shield-check",
