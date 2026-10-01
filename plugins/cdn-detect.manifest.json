@@ -2,7 +2,7 @@
   "identifier": "run.vineyard.pluginpacks.cdn_detect",
   "content_type": "vineyard:pluginpack",
   "name": "CDN / WAF Detection (cdncheck)",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Detects CDN and WAF providers for IP addresses and domains using ProjectDiscovery's cdncheck dataset (MIT license).",
   "author": {
     "name": "VINEYARD",
@@ -67,7 +67,7 @@
       "identifier": "run.vineyard.plugins.cdn_detect_hostname",
       "content_type": "vineyard:plugin",
       "name": "Detect CDN (Hostname)",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "description": "Follows each selected Domain's CNAME chain and matches it against known CDN hostname patterns (cdncheck). On a match, creates a CNAME DNS Record node (the matching hostname) linked \"has record\".",
       "icon": "route",
       "platforms": {
@@ -105,14 +105,14 @@
             "methods": [
               "GET"
             ],
-            "purpose": "Resolve CNAME chain over DNS-over-HTTPS."
+            "purpose": "Resolve the CNAME chain of each selected domain."
           },
           {
             "endpoint": "https://dns.google/resolve",
             "methods": [
               "GET"
             ],
-            "purpose": "Fallback DoH resolver."
+            "purpose": "Same lookup, used when cloudflare-dns.com fails."
           }
         ]
       },
