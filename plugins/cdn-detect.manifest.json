@@ -2,8 +2,8 @@
   "identifier": "run.vineyard.pluginpacks.cdn_detect",
   "content_type": "vineyard:pluginpack",
   "name": "CDN / WAF Detection (cdncheck)",
-  "version": "1.0.0",
-  "description": "Detects CDN/WAF providers for IP addresses (offline CIDR match) and domains (DNS-over-HTTPS CNAME match), using ProjectDiscovery's cdncheck dataset (MIT license).",
+  "version": "1.0.1",
+  "description": "Detects CDN and WAF providers for IP addresses and domains using ProjectDiscovery's cdncheck dataset (MIT license).",
   "author": {
     "name": "VINEYARD",
     "url": "https://github.com/Vineyard-Intelligence"
@@ -28,8 +28,8 @@
       "identifier": "run.vineyard.plugins.cdn_detect_ip",
       "content_type": "vineyard:plugin",
       "name": "Detect CDN/WAF (IP)",
-      "version": "1.0.0",
-      "description": "Matches each selected IP against known CDN and WAF edge-network ranges (3490 ranges bundled from ProjectDiscovery cdncheck) and fills the IP's organization field. Fully offline \u2014 no network access; only reads and updates the matched node's own data.",
+      "version": "1.0.1",
+      "description": "Matches each selected IP Address against known CDN and WAF IP ranges (cdncheck) and sets the IP's organization to the matched provider, e.g. \"cloudflare (WAF)\". Unmatched IPs are left unchanged; creates no nodes.",
       "icon": "shield-check",
       "platforms": {
         "primary": "web",
@@ -67,8 +67,8 @@
       "identifier": "run.vineyard.plugins.cdn_detect_hostname",
       "content_type": "vineyard:plugin",
       "name": "Detect CDN (Hostname)",
-      "version": "1.0.0",
-      "description": "Follows each selected domain's CNAME chain (via DNS-over-HTTPS) and matches it against 32 known CDN hostname patterns (cdncheck \"common\" list). Adds the resolved CNAME as a DNS record on a match.",
+      "version": "1.0.1",
+      "description": "Follows each selected Domain's CNAME chain and matches it against known CDN hostname patterns (cdncheck). On a match, creates a CNAME DNS Record node (the matching hostname) linked \"has record\".",
       "icon": "route",
       "platforms": {
         "primary": "web",
