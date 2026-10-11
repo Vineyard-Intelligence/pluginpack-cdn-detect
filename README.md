@@ -29,4 +29,5 @@ detection) is intentionally dropped from the bundled dataset.
 - `plugins/cdn-detect.manifest.json` — the pack manifest (catalog entry source).
 - `dist/pack.mjs` — the runnable bundle.
 
-Data: ProjectDiscovery `cdncheck` — <https://github.com/projectdiscovery/cdncheck> (MIT license).
+Data: ProjectDiscovery `cdncheck` — <https://github.com/projectdiscovery/cdncheck> (MIT license). Its copyright and licence notice is in
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) and inside `dist/pack.mjs`.
