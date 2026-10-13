@@ -17,12 +17,6 @@
       "entry": "dist/pack.mjs"
     }
   },
-  "distribution": {
-    "kind": "git",
-    "repository": "https://github.com/Vineyard-Intelligence/pluginpack-cdn-detect",
-    "ref": "v1.0.0",
-    "path": "plugins/cdn-detect.manifest.json"
-  },
   "plugins": [
     {
       "identifier": "run.vineyard.plugins.cdn_detect_ip",
