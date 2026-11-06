@@ -27,7 +27,20 @@ detection) is intentionally dropped from the bundled dataset.
 ## Layout
 
 - `plugins/cdn-detect.manifest.json` — the pack manifest (catalog entry source).
+- `src/` — the source of the bundle.
 - `dist/pack.mjs` — the runnable bundle.
 
 Data: ProjectDiscovery `cdncheck` — <https://github.com/projectdiscovery/cdncheck> (MIT license). Its copyright and licence notice is in
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) and inside `dist/pack.mjs`.
+
+## Building from source
+
+`src/` is the source of `dist/pack.mjs`. The build pins esbuild, so the published bundle can be
+checked against the source:
+
+```bash
+node build.mjs
+git diff --exit-code dist/pack.mjs
+```
+
+`node scripts/sync-cdncheck-data.mjs` refreshes `src/data/cdncheck-data.json` from upstream.
